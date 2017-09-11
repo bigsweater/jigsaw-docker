@@ -5,13 +5,13 @@ services:
     command: ["node_modules/.bin/gulp", "--production"]
     environment:
       - NODE_ENV=production
-    image: "bigsweater/jigsaw"
+    image: "bigsweater/jigsaw-docker"
     volumes:
       - ./:/usr/src/app
     working_dir: /usr/src/app
 
   jigsaw_build_site:
     command: ["jigsaw", "build", "production"]
-    image: "bigsweater/jigsaw"
+    image: "bigsweater/jigsaw-docker"
     volumes:
       - ".:/app"

@@ -3,7 +3,7 @@ version: "3.3"
 services:
   jigsaw_build:
     command: ["jigsaw", "build"]
-    image: "bigsweater/jigsaw"
+    image: "bigsweater/jigsaw-docker"
     volumes:
       - ./:/app
 
@@ -13,7 +13,7 @@ services:
       - jigsaw_build
     environment:
       - NODE_ENV=development
-    image: "bigsweater/jigsaw"
+    image: "bigsweater/jigsaw-docker"
     ports:
       - "3000:3000"
       - "3001:3001"
