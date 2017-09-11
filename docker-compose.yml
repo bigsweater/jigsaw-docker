@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  jigsaw_build:
+    command: ["jigsaw", "build"]
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ./:/app
+
+  jigsaw_dev:
+    command: ["node_modules/.bin/gulp", "watch"]
+    depends_on:
+      - jigsaw_build
+    environment:
+      - NODE_ENV=development
+    image: "bigsweater/jigsaw"
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app

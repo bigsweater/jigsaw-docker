@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  jigsaw_build_assets:
+    command: ["node_modules/.bin/gulp", "--production"]
+    environment:
+      - NODE_ENV=production
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+
+  jigsaw_build_site:
+    command: ["jigsaw", "build", "production"]
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ".:/app"

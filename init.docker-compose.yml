@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  jigsaw:
+    command: ["jigsaw", "init", "."]
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ".:/app"
+
+  jigsaw_build:
+    command: ["jigsaw", "build", "local"]
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ".:/app"
+
+  node:
+    command: ["npm", "install"]
+    depends_on: 
+      - jigsaw_build
+    environment:
+      - NODE_ENV=development
+    image: "bigsweater/jigsaw"
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
