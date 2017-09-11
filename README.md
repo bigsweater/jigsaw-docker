@@ -25,6 +25,10 @@ You'll see two containers run:
 1. `jigsaw init` runs in the first container, creating a new Jigsaw project
 2. `npm install` runs in the second
 
+`node_modules` is a volume that defaults to the current working directory. You can relocate it to an anonymous volume, if you'd like, but I usually find it useful to keep `node_modules` in my working directory.
+
+**Note:** If you'd rather use the Node and NPM that exists locally on your Docker host, you can, but you'll have to do `npm install` on your host machine, **not** inside the container, since NPM installs platform-specific binaries (e.g. node-sass). You'd also have to modify the watch script to call your docker container, rather than the local `jigsaw` command.
+
 ## Developing
 
 ```bash
@@ -33,7 +37,7 @@ docker-compose up
 
 Runs a `jigsaw build local` so we're sure we're working with your latest changes, and then `gulp watch`, which kicks off BrowserSync at `localhost:3000`. Your site is automatically rebuilt with each change, and dropped into the `build_local` directory.
 
-**🔥 Hot tip:** BrowserSync sometimes refreshes before the server is actually ready to go, resulting in a very annoying `Cannot GET /` message in your browser. You can mitigate this by setting `reloadDelay` in your BrowserSync config (in the Gulpfile):
+**🔥 Hot tip:** BrowserSync sometimes refreshes before the server is actually ready to rumble, resulting in a very annoying `Cannot GET /` message in your browser. You can mitigate this by setting `reloadDelay` in your BrowserSync config (in the Gulpfile):
 
 ```javascript
 .browserSync({
@@ -51,7 +55,7 @@ When you're ready to build your assets for production, run the two services in `
 
 ```bash
 docker-compose -f prod.docker-compose.yml up jigsaw_build_assets && \
-docker-compose -f prod.docker-compose.yml up jigsaw_build_site && 
+docker-compose -f prod.docker-compose.yml up jigsaw_build_site
 ```
 
 This builds your site in the `build_production` directory.
